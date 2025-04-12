@@ -787,3 +787,32 @@ section.featured .card-title.h5 {
   z-index: 2;
   /* Ensure content is above SVG */
 }
+
+
+
+.featured {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.features-list {
+  position: relative;
+  /* Context for absolute positioning of bottom-image */
+}
+
+/* Position bottom images behind cards without taking space */
+.bottom-image {
+  /* position: absolute; */
+  /* top: 0; */
+  /* left: 70px; */
+  z-index: -1;
+  /* Place behind the card */
+  pointer-events: none;
+  /* Prevent interaction */
+  /* Adjust size/position as needed for animation */
+  /* Example: match card width */
+}
+
+
+

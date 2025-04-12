@@ -1071,223 +1071,316 @@ const Blogs = [
 
 gsap.registerPlugin(ScrollTrigger);
 function Home() {
-  const logoRefs = useRef(null);
-  const containerRefs = useRef(null);
-  const welcomeTextRef = useRef(null); // Reference for "WELCOME TO SLOC" text
-  const scrollImageRef = useRef(null); // Reference for the scroll image
-  //1.) WELCOME TO SLOC section
-  // useEffect(() => {
-  //   // Create a smoother timeline
-  //   gsap.timeline({
-  //     scrollTrigger: {
-  //       trigger: containerRefs.current,
-  //       start: "top center",
-  //       end: "bottom center",
-  //       scrub: 1.2, // smoother scrub
-  //       markers: false,
-  //     }
-  //   })
-  //     .fromTo(logoRefs.current,
-  //       {
-  //         opacity: 0,
-  //         y: -300,
-  //         x: 150,
-  //         scale: 1.4
-  //       },
-  //       {
-  //         opacity: 1,
-  //         y: 50,
-  //         x: 400,
-  //         scale: 0.6,
-  //         ease: "power3.out"
-  //       }
-  //     )
-  //     .to(logoRefs.current,
-  //       {
-  //         opacity: 0,
-  //         y: 500,
-  //         x: 500,
-  //         scale: 0.2,
-  //         ease: "power3.inOut"
-  //       }
-  //     );
+//   const logoRefs = useRef(null);
+//   const containerRefs = useRef(null);
+//   const welcomeTextRef = useRef(null); // Reference for "WELCOME TO SLOC" text
+//   const scrollImageRef = useRef(null); // Reference for the scroll image
+//   //1.) WELCOME TO SLOC section
+//   // useEffect(() => {
+//   //   // Create a smoother timeline
+//   //   gsap.timeline({
+//   //     scrollTrigger: {
+//   //       trigger: containerRefs.current,
+//   //       start: "top center",
+//   //       end: "bottom center",
+//   //       scrub: 1.2, // smoother scrub
+//   //       markers: false,
+//   //     }
+//   //   })
+//   //     .fromTo(logoRefs.current,
+//   //       {
+//   //         opacity: 0,
+//   //         y: -300,
+//   //         x: 150,
+//   //         scale: 1.4
+//   //       },
+//   //       {
+//   //         opacity: 1,
+//   //         y: 50,
+//   //         x: 400,
+//   //         scale: 0.6,
+//   //         ease: "power3.out"
+//   //       }
+//   //     )
+//   //     .to(logoRefs.current,
+//   //       {
+//   //         opacity: 0,
+//   //         y: 500,
+//   //         x: 500,
+//   //         scale: 0.2,
+//   //         ease: "power3.inOut"
+//   //       }
+//   //     );
 
-  // }, []);
+//   // }, []);
 
-// useEffect(() => {
-//     // Explicitly set initial SVG attributes
-//     if (logoRefs.current) {
-//       gsap.set(logoRefs.current.querySelectorAll('path'), {
-//         fill: 'none', // Transparent fill initially
-//         stroke: '#d9dee2', // Light gray border initially
-//         strokeWidth: 2, // Border thickness
-//       });
+// // useEffect(() => {
+// //     // Explicitly set initial SVG attributes
+// //     if (logoRefs.current) {
+// //       gsap.set(logoRefs.current.querySelectorAll('path'), {
+// //         fill: 'none', // Transparent fill initially
+// //         stroke: '#d9dee2', // Light gray border initially
+// //         strokeWidth: 2, // Border thickness
+// //       });
+// //     }
+
+// //     // Main animation timeline
+// //     const tl = gsap.timeline({
+// //       scrollTrigger: {
+// //         trigger: containerRefs.current,
+// //         start: 'top center',
+// //         end: 'bottom center',
+// //         scrub: 1.2,
+// //         markers: false,
+// //       },
+// //     })
+// //       .fromTo(
+// //         logoRefs.current,
+// //         {
+// //           opacity: 0,
+// //           y: -300,
+// //           x: 150,
+// //           scale: 1.4,
+// //         },
+// //         {
+// //           opacity: 1,
+// //           y: 50,
+// //           x: 400,
+// //           scale: 0.6,
+// //           ease: 'power3.out',
+// //         }
+// //       )
+// //       .to(scrollImageRef.current, {
+// //         opacity: 0,
+// //         duration: 0.3,
+// //         ease: 'power3.out',
+// //       }, 0)
+// //       .to(logoRefs.current, {
+// //         opacity: 0,
+// //         y: 500,
+// //         x: 500,
+// //         scale: 0.2,
+// //         ease: 'power3.inOut',
+// //       });
+
+// //     // Change SVG to blue fill when overlapping with welcomeTextRef
+// //     gsap.to(logoRefs.current.querySelectorAll('path'), {
+// //       scrollTrigger: {
+// //         trigger: welcomeTextRef.current,
+// //         start: 'top bottom', // When top of welcomeTextRef hits bottom of logoRefs
+// //         end: 'bottom top', // When bottom of welcomeTextRef passes top of logoRefs
+// //         scrub: true,
+// //         markers: false,
+// //         onEnter: () => {
+// //           // Transition to solid blue fill
+// //           gsap.to(logoRefs.current.querySelectorAll('path'), {
+// //             fill: '#064685', // Blue fill
+// //             stroke: '#064685', // Blue border to match fill (or set to 'none' if no border desired)
+// //             duration: 0.3,
+// //           });
+// //         },
+// //         onLeave: () => {
+// //           // Revert to transparent with light gray border
+// //           gsap.to(logoRefs.current.querySelectorAll('path'), {
+// //             fill: 'none',
+// //             stroke: '#d9dee2', // Back to light gray border
+// //             duration: 0.3,
+// //           });
+// //         },
+// //         onEnterBack: () => {
+// //           // Re-apply blue fill when re-entering
+// //           gsap.to(logoRefs.current.querySelectorAll('path'), {
+// //             fill: '#064685',
+// //             stroke: '#064685', // Blue border to match
+// //             duration: 0.3,
+// //           });
+// //         },
+// //         onLeaveBack: () => {
+// //           // Revert to transparent with light gray border
+// //           gsap.to(logoRefs.current.querySelectorAll('path'), {
+// //             fill: 'none',
+// //             stroke: '#d9dee2', // Back to light gray border
+// //             duration: 0.3,
+// //           });
+// //         },
+// //       },
+// //     });
+
+// //     return () => {
+// //       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+// //     };
+// //   }, []);
+
+// useLayoutEffect(() => {
+//     if (
+//       !containerRefs.current ||
+//       !logoRefs.current ||
+//       !scrollImageRef.current ||
+//       !welcomeTextRef.current
+//     ) {
+//       return;
 //     }
 
-//     // Main animation timeline
-//     const tl = gsap.timeline({
-//       scrollTrigger: {
-//         trigger: containerRefs.current,
-//         start: 'top center',
-//         end: 'bottom center',
-//         scrub: 1.2,
-//         markers: false,
-//       },
-//     })
-//       .fromTo(
-//         logoRefs.current,
-//         {
-//           opacity: 0,
-//           y: -300,
-//           x: 150,
-//           scale: 1.4,
-//         },
-//         {
-//           opacity: 1,
-//           y: 50,
-//           x: 400,
-//           scale: 0.6,
-//           ease: 'power3.out',
-//         }
-//       )
-//       .to(scrollImageRef.current, {
-//         opacity: 0,
-//         duration: 0.3,
-//         ease: 'power3.out',
-//       }, 0)
-//       .to(logoRefs.current, {
-//         opacity: 0,
-//         y: 500,
-//         x: 500,
-//         scale: 0.2,
-//         ease: 'power3.inOut',
-//       });
+//     const logoPaths = logoRefs.current.querySelectorAll('path');
 
-//     // Change SVG to blue fill when overlapping with welcomeTextRef
-//     gsap.to(logoRefs.current.querySelectorAll('path'), {
-//       scrollTrigger: {
+//     // ✅ 1. Set initial SVG state to transparent
+//     const setTransparent = () => {
+//       gsap.set(logoPaths, {
+//         fill: 'none',
+//         stroke: '#d9dee2',
+//       });
+//     };
+//     setTransparent();
+
+//     // ✅ 2. GSAP context for animations
+//     const ctx = gsap.context(() => {
+//       // ✅ 3. Main timeline animation
+//       gsap.timeline({
+//         scrollTrigger: {
+//           trigger: containerRefs.current,
+//           start: 'top center',
+//           end: 'bottom center',
+//           scrub: 1.2,
+//           markers: false,
+//         },
+//       })
+//         .fromTo(
+//           logoRefs.current,
+//           { opacity: 0, y: -300, x: 150, scale: 1.4 },
+//           { opacity: 1, y: 50, x: 400, scale: 0.6, ease: 'power3.out' }
+//         )
+//         .to(scrollImageRef.current, { opacity: 0, duration: 0.3, ease: 'power3.out' }, 0)
+//         .to(logoRefs.current, { opacity: 0, y: 500, x: 500, scale: 0.2, ease: 'power3.inOut' });
+
+//       // ✅ 4. Simplified color change logic
+//       ScrollTrigger.create({
 //         trigger: welcomeTextRef.current,
-//         start: 'top bottom', // When top of welcomeTextRef hits bottom of logoRefs
-//         end: 'bottom top', // When bottom of welcomeTextRef passes top of logoRefs
+//         start: 'top bottom',
+//         end: 'bottom top',
 //         scrub: true,
 //         markers: false,
-//         onEnter: () => {
-//           // Transition to solid blue fill
-//           gsap.to(logoRefs.current.querySelectorAll('path'), {
-//             fill: '#064685', // Blue fill
-//             stroke: '#064685', // Blue border to match fill (or set to 'none' if no border desired)
-//             duration: 0.3,
+//         onUpdate: (self) => {
+//           gsap.set(logoPaths, {
+//             fill: self.isActive ? '#064685' : 'none',
+//             stroke: self.isActive ? '#064685' : '#d9dee2',
 //           });
 //         },
-//         onLeave: () => {
-//           // Revert to transparent with light gray border
-//           gsap.to(logoRefs.current.querySelectorAll('path'), {
-//             fill: 'none',
-//             stroke: '#d9dee2', // Back to light gray border
-//             duration: 0.3,
-//           });
-//         },
-//         onEnterBack: () => {
-//           // Re-apply blue fill when re-entering
-//           gsap.to(logoRefs.current.querySelectorAll('path'), {
-//             fill: '#064685',
-//             stroke: '#064685', // Blue border to match
-//             duration: 0.3,
-//           });
-//         },
-//         onLeaveBack: () => {
-//           // Revert to transparent with light gray border
-//           gsap.to(logoRefs.current.querySelectorAll('path'), {
-//             fill: 'none',
-//             stroke: '#d9dee2', // Back to light gray border
-//             duration: 0.3,
-//           });
-//         },
-//       },
-//     });
+//       });
 
+//       // ✅ 5. Handle layout changes (DevTools toggle)
+//       const handleLayoutChange = () => {
+//         ScrollTrigger.refresh();
+//         // Re-check SVG state after layout stabilizes
+//         gsap.set(logoPaths, {
+//           fill: ScrollTrigger.getById('welcomeTrigger')?.isActive ? '#064685' : 'none',
+//           stroke: ScrollTrigger.getById('welcomeTrigger')?.isActive ? '#064685' : '#d9dee2',
+//         });
+//       };
+
+//       window.addEventListener('resize', handleLayoutChange);
+
+//       // ✅ 6. Initial refresh
+//       ScrollTrigger.refresh();
+
+//       // Cleanup
+//       return () => {
+//         window.removeEventListener('resize', handleLayoutChange);
+//       };
+//     }, containerRefs);
+
+//     // ✅ 7. Cleanup GSAP and ScrollTrigger
 //     return () => {
+//       ctx.revert();
 //       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+//       setTransparent(); // Ensure SVG resets to transparent
 //     };
 //   }, []);
+const containerRefs = useRef(null);
+  const logoRefs = useRef(null); // Transparent SVG
+  const blueLogoRef = useRef(null); // Blue SVG
+  const scrollImageRef = useRef(null);
+  const welcomeTextRef = useRef(null);
 
-useEffect(() => {
-    // Main animation timeline
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRefs.current,
-        start: 'top center',
-        end: 'bottom center',
-        scrub: 1.2,
-        markers: false,
-      },
-    })
-      .fromTo(
-        logoRefs.current,
-        {
-          opacity: 0,
-          y: -300,
-          x: 150,
-          scale: 1.4,
+  useLayoutEffect(() => {
+    if (
+      !containerRefs.current ||
+      !logoRefs.current ||
+      !blueLogoRef.current ||
+      !scrollImageRef.current ||
+      !welcomeTextRef.current
+    ) {
+      return;
+    }
+
+    // ✅ 1. Initialize both SVGs
+    gsap.set(logoRefs.current, { opacity: 1 }); // Transparent SVG visible
+    gsap.set(blueLogoRef.current, { opacity: 0 }); // Blue SVG hidden
+
+    // ✅ 2. GSAP context for animations
+    const ctx = gsap.context(() => {
+      // ✅ 3. Main timeline for both SVGs (same movement)
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRefs.current,
+          start: 'top center',
+          end: 'bottom center',
+          scrub: 1.2,
+          markers: false,
         },
-        {
-          opacity: 1,
-          y: 50,
-          x: 400,
-          scale: 0.6,
-          ease: 'power3.out',
-        }
-      )
-      .to(scrollImageRef.current, {
-        opacity: 0,
-        duration: 0.3,
-        ease: 'power3.out',
-      }, 0)
-      .to(logoRefs.current, {
-        opacity: 0,
-        y: 500,
-        x: 500,
-        scale: 0.2,
-        ease: 'power3.inOut',
-      });
+      })
+        .fromTo(
+          [logoRefs.current, blueLogoRef.current], // Animate both SVGs together
+          { opacity: 0, y: -300, x: 150, scale: 1.4 },
+          { opacity: 1, y: 50, x: 400, scale: 0.6, ease: 'power3.out' }
+        )
+        .to(scrollImageRef.current, { opacity: 0, duration: 0.3, ease: 'power3.out' }, 0)
+        .to([logoRefs.current, blueLogoRef.current], {
+          opacity: 0,
+          y: 500,
+          x: 500,
+          scale: 0.2,
+          ease: 'power3.inOut',
+        });
 
-    // Change SVG color instantly without interrupting motion
-    gsap.to(logoRefs.current.querySelectorAll('path'), {
-      scrollTrigger: {
+      // ✅ 4. Color change effect (swap opacity)
+      ScrollTrigger.create({
         trigger: welcomeTextRef.current,
         start: 'top bottom',
         end: 'bottom top',
         scrub: true,
         markers: false,
-        onEnter: () => {
-          gsap.set(logoRefs.current.querySelectorAll('path'), {
-            fill: '#064685',
-            stroke: '#064685',
-          });
+        onUpdate: (self) => {
+          const opacity = self.progress; // Smooth transition
+          gsap.to(logoRefs.current, { opacity: 1 - opacity, duration: 0.3 });
+          gsap.to(blueLogoRef.current, { opacity: opacity, duration: 0.3 });
         },
-        onLeave: () => {
-          gsap.set(logoRefs.current.querySelectorAll('path'), {
-            fill: 'none',
-            stroke: '#d9dee2',
-          });
-        },
-        onEnterBack: () => {
-          gsap.set(logoRefs.current.querySelectorAll('path'), {
-            fill: '#064685',
-            stroke: '#064685',
-          });
-        },
-        onLeaveBack: () => {
-          gsap.set(logoRefs.current.querySelectorAll('path'), {
-            fill: 'none',
-            stroke: '#d9dee2',
-          });
-        },
-      },
-    });
+      });
 
+      // ✅ 5. Handle layout changes (DevTools toggle)
+      const handleLayoutChange = () => {
+        ScrollTrigger.refresh();
+        // Ensure correct SVG visibility after resize
+        const st = ScrollTrigger.getById('welcomeTrigger');
+        const opacity = st && st.isActive ? 1 : 0;
+        gsap.set(logoRefs.current, { opacity: opacity ? 0 : 1 });
+        gsap.set(blueLogoRef.current, { opacity });
+      };
+
+      window.addEventListener('resize', handleLayoutChange);
+      ScrollTrigger.refresh(); // Immediate refresh
+
+      // Cleanup
+      return () => {
+        window.removeEventListener('resize', handleLayoutChange);
+      };
+    }, containerRefs);
+
+    // ✅ 6. Cleanup
     return () => {
+      ctx.revert();
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      gsap.set([logoRefs.current, blueLogoRef.current], { opacity: 0 });
+      gsap.set(logoRefs.current, { opacity: 1 }); // Reset to transparent
     };
   }, []);
 // WELCOME TO SLOC section animation
@@ -1432,7 +1525,7 @@ useEffect(() => {
         img,
         {
           x: 0,
-          y: -150,
+          y: -170,
           scale: 1,
           opacity: 1,
           visibility: "hidden",
@@ -1441,7 +1534,7 @@ useEffect(() => {
           x: xOffset,
           y: 300,
           scale: 1,
-          opacity: 1,
+          opacity: 0,
           visibility: "visible",
           ease: "power2.out",
           scrollTrigger: {
@@ -1466,32 +1559,77 @@ useEffect(() => {
     });
 
     // Bottom Images Animation
-    bottomImages.forEach((img, index) => {
-      const box = boxes[index];
+// bottomImages.forEach((img, index) => {
+//   const target = section2ImageRef.current[index]; // target location for each image
 
-      const xOffset = () => {
-        const boxRect = box.getBoundingClientRect();
-        const imgRect = img.getBoundingClientRect();
-        return boxRect.left + boxRect.width / 2 - (imgRect.left + imgRect.width / 2);
-      };
+//   const getOffsets = () => {
+//     const imgRect = img.getBoundingClientRect();
+//     const targetRect = target.getBoundingClientRect();
 
-      gsap.fromTo(
-        img,
-        { y: -100, opacity: 0, visibility: "hidden", x: xOffset },
-        {
-          y: 100,
-          opacity: 1,
-          visibility: "visible",
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: section1Ref.current,
-            start: "bottom-=400 bottom",
-            end: "bottom+=200 bottom",
-            scrub: 3,
-          },
-        }
-      );
+//     const offsetX = targetRect.left + targetRect.width / 2 - (imgRect.left + imgRect.width / 2);
+//     const offsetY = targetRect.top + targetRect.height / 2 - (imgRect.top + imgRect.height / 2);
+
+//     return { x: offsetX, y: offsetY };
+//   };
+
+//   ScrollTrigger.create({
+//     trigger: section2Ref.current,
+//     start: "top center",
+//     end: "bottom center",
+//     scrub: true,
+//     onUpdate: () => {
+//       const { x, y } = getOffsets();
+
+//       gsap.to(img, {
+//         x,
+//         y,
+//         scale: 0.5,
+//         opacity: 0,
+//         ease: "power2.out",
+//         overwrite: "auto", // makes sure it can be adjusted every scroll
+//         duration: 0.5,
+//       });
+//     },
+//     onEnter: () => gsap.set(img, { visibility: "visible" }),
+//     onLeaveBack: () => gsap.set(img, { visibility: "hidden" }),
+//   });
+// });
+
+bottomImages.forEach((img, index) => {
+  const target = section2ImageRef.current[index];
+
+  const getOffsets = () => {
+    const imgRect = img.getBoundingClientRect();
+    const targetRect = target.getBoundingClientRect();
+
+    const offsetX = targetRect.left + targetRect.width / 2 - (imgRect.left + imgRect.width / 2);
+    const offsetY = targetRect.top + targetRect.height / 2 - (imgRect.top + imgRect.height / 2);
+
+    return { x: offsetX, y: offsetY };
+  };
+
+  // Wait for layout to settle
+  requestAnimationFrame(() => {
+    const { x, y } = getOffsets();
+
+    gsap.to(img, {
+      x,
+      y,
+      scale: 0.5,
+      opacity: 0,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: section2Ref.current,
+        start: "top center",
+        end: "bottom center",
+        scrub: 1, // <== this makes it follow the scroll smoothly!
+        onEnter: () => gsap.set(img, { visibility: "visible" }),
+        onLeaveBack: () => gsap.set(img, { visibility: "hidden" }),
+      },
     });
+  });
+});
+
 
     // Section 2: Bottom images move into right-side image
 // Section 2: Bottom images move into right-side image
@@ -1664,8 +1802,6 @@ gsap.to(section2Image, {
   useEffect(() => {
     const boxes = BlogsboxRefs.current;
     const images = BlogimageRefs.current;
-    const blogsbottomImages = BlogBottomImageRefs.current;
-    const blogssection2Image = BlogsBottomsectionRef.current;
 
     // Bottom Images: Emerge from inside boxes downward
 
@@ -1714,68 +1850,33 @@ gsap.to(section2Image, {
         }
       );
     });
-    blogsbottomImages.forEach((img, index) => {
-      const box = boxes[index];
+// Collapse and vanish images into one at the bottom
+gsap.to(images, {
+  x: (i, target, targets) => {
+    const container = BlogsBottomsectionRef.current.getBoundingClientRect();
+    const imgRect = target.getBoundingClientRect();
+    const centerX = container.left + container.width / 2;
+    const imgCenterX = imgRect.left + imgRect.width / 2;
+    return centerX - imgCenterX;
+  },
+  y: (i, target, targets) => {
+    const container = BlogsBottomsectionRef.current.getBoundingClientRect();
+    const centerY = container.top + container.height / 2;
+    const imgRect = target.getBoundingClientRect();
+    const imgCenterY = imgRect.top + imgRect.height / 2;
+    return centerY - imgCenterY;
+  },
+  scale: 0,
+  opacity: 0,
+  ease: "power2.inOut",
+  scrollTrigger: {
+    trigger: BlogsBottomsectionRef.current,
+    start: "bottom-=200 center", // or adjust based on where you want convergence to begin
+    end: "bottom center",
+    scrub: true,
+  },
+});
 
-      const xOffset = () => {
-        const boxRect = box.getBoundingClientRect();
-        const imgRect = img.getBoundingClientRect();
-        return boxRect.left + boxRect.width / 2 - (imgRect.left + imgRect.width / 2);
-      };
-
-      gsap.fromTo(
-        img,
-        { y: -100, opacity: 1, visibility: "hidden", x: xOffset }, // Start hidden
-        {
-          y: 100,
-          opacity: 1,
-          visibility: "visible", // Become visible when moving
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: blogsectionRef.current,
-            start: "bottom-=200 bottom",
-            end: "bottom bottom",
-            scrub: true,
-          },
-        }
-      );
-    });
-
-    // Section 2: Bottom images move into right-side image
-    blogsbottomImages.forEach((img) => {
-      const xOffset = () => {
-        const imgRect = img.getBoundingClientRect();
-        const section2ImgRect = blogssection2Image.getBoundingClientRect();
-        return section2ImgRect.left + section2ImgRect.width / 2 - (imgRect.left + imgRect.width / 2);
-      };
-
-      gsap.to(img, {
-        x: xOffset,
-        y: 500,
-        scale: 0.5,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: section2Ref.current,
-          start: "top center",
-          end: "bottom center",
-          scrub: true,
-          onEnter: () => gsap.set(img, { visibility: "visible" }), // Ensure visibility when animation starts
-          onLeaveBack: () => gsap.set(img, { visibility: "hidden" }) // Hide when scrolling back up
-        },
-      });
-    });
-
-    // Section 2: Move top images only
-    gsap.to(images, {
-      y: 500,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: BlogsBottomsectionRef.current,
-        start: "top center",
-        end: "bottom center",
-        scrub: true,
-      },
-    });
   }, []);
 
   return (
@@ -1853,83 +1954,120 @@ gsap.to(section2Image, {
           </div>
         </section>
 
-        <section ref={containerRefs} className="welcome">
+<section ref={containerRefs} className="welcome">
+  {/* Transparent SVG */}
 <svg
-      className="Move"
-      width="384"
-      height="383"
-      viewBox="0 0 384 383"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      ref={logoRefs}
-      style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          zIndex: 1,
-        }}
-    >
-      <path
-        d="M70.7116 334.744C0.580713 282.717 -19.6915 184.139 20.305 106.373C60.8494 26.9634 151.8 -15.7535 231.245 6.70026C334.25 35.7258 368.22 159.495 294.254 235.071C289.871 239.452 284.939 242.19 280.008 246.024C283.296 224.666 290.418 204.403 289.323 184.139C284.939 121.159 223.575 80.6332 160.567 96.5151C64.6847 121.159 15.9218 230.69 61.9452 318.314C64.6847 323.791 67.9721 329.267 70.7116 334.744Z"
-      />
-      <path
-        d="M101.16 147.639C98.4175 160.785 95.6751 169.548 95.1267 178.311C87.4483 244.037 141.746 297.713 208.109 289.497C312.864 276.352 373.195 176.121 335.351 77.5319C333.706 73.6979 332.609 69.3162 329.866 62.7437C379.228 103.275 397.327 185.979 373.743 254.444C338.642 356.319 222.369 411.09 134.067 367.821C55.0893 329.481 32.6025 229.249 86.3514 161.332C89.6421 156.951 94.0298 154.212 101.16 147.639Z"
-      />
-    </svg>
-          <Container className="py-5">
-            <Row className="mb-4 d-flex">
-              <Col md={6} className=" align-content-end head">
-                <img src={Round} alt="scroling" className="scrol-top"  ref={scrollImageRef}/>
-                <h2 className="same-head" ref={welcomeTextRef} >WELCOME TO SLOC</h2>
-                <p className="same-head-p">
-                  SLOC – "Search Land of Choice" is a leading real estate
-                  company in India dedicated to providing exceptional property
-                  solutions. With a focus on customer satisfaction and market
-                  expertise, SLOC has built a reputation as a trusted name in
-                  the industry. Collaborating with top-tier real estate brands
-                  like Godrej, DLF, and many more, SLOC offers a diverse range
-                  of properties, including luxurious apartments, plots, villas,
-                  and commercial space.
-                </p>
-              </Col>
-              <Col md={6} className="d-flex flex-wrap four-col-st">
-                <Col md={6} lg={6} className="right">
-                  <Card className="">
-                    <h3 className="text-primary">
-                      <Counter className="Counter-no" to={1} from={0} />
-                      M+
-                    </h3>
-                    <p>Sed ut Perspiciatis</p>
-                  </Card>
-                </Col>
-                <Col md={6} lg={6} className="only-bottom">
-                  <Card className="">
-                    <h3 className="text-primary">
-                      <Counter className="Counter-no" to={500} from={0} />
-                      K
-                    </h3>                    <p>Lorem Ipsum</p>
-                  </Card>
-                </Col>
-                <Col md={6} lg={6} className="only-right">
-                  <Card>
-                    <h3 className="text-primary">
-                      <Counter className="Counter-no" to={24} from={0} />
-                      /7
-                    </h3>                     <p>Consectetur Adipiscing Elit, Sed Do</p>
-                  </Card>
-                </Col>
-                <Col md={6} lg={6} className="left-brdr">
-                  <Card className="">
-                    <h3 className="text-primary">
-                      <Counter className="Counter-no" to={1} from={0} />
-                      M+
-                    </h3>                    <p>Sed ut Perspiciatis</p>
-                  </Card>
-                </Col>
-              </Col>
-            </Row>
-          </Container>
-        </section>
+    className="Move"
+    width="384"
+    height="383"
+    viewBox="0 0 384 383"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    ref={logoRefs}
+    style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      zIndex: 1,
+    }}
+>
+  <path
+    d="M70.7116 334.744C0.580713 282.717 -19.6915 184.139 20.305 106.373C60.8494 26.9634 151.8 -15.7535 231.245 6.70026C334.25 35.7258 368.22 159.495 294.254 235.071C289.871 239.452 284.939 242.19 280.008 246.024C283.296 224.666 290.418 204.403 289.323 184.139C284.939 121.159 223.575 80.6332 160.567 96.5151C64.6847 121.159 15.9218 230.69 61.9452 318.314C64.6847 323.791 67.9721 329.267 70.7116 334.744Z"
+    fill="none"
+    stroke="black"
+    stroke-width="2"
+  />
+  <path
+    d="M101.16 147.639C98.4175 160.785 95.6751 169.548 95.1267 178.311C87.4483 244.037 141.746 297.713 208.109 289.497C312.864 276.352 373.195 176.121 335.351 77.5319C333.706 73.6979 332.609 69.3162 329.866 62.7437C379.228 103.275 397.327 185.979 373.743 254.444C338.642 356.319 222.369 411.09 134.067 367.821C55.0893 329.481 32.6025 229.249 86.3514 161.332C89.6421 156.951 94.0298 154.212 101.16 147.639Z"
+    fill="none"
+    stroke="black"
+    stroke-width="2"
+  />
+</svg>
+  {/* Blue SVG */}
+  <svg
+    className="Move"
+    width="384"
+    height="383"
+    viewBox="0 0 384 383"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    ref={blueLogoRef}
+    style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      zIndex: 1,
+      opacity: 0, // Start hidden
+    }}
+  >
+    <path
+      d="M70.7116 334.744C0.580713 282.717 -19.6915 184.139 20.305 106.373C60.8494 26.9634 151.8 -15.7535 231.245 6.70026C334.25 35.7258 368.22 159.495 294.254 235.071C289.871 239.452 284.939 242.19 280.008 246.024C283.296 224.666 290.418 204.403 289.323 184.139C284.939 121.159 223.575 80.6332 160.567 96.5151C64.6847 121.159 15.9218 230.69 61.9452 318.314C64.6847 323.791 67.9721 329.267 70.7116 334.744Z"
+      fill="#064685"
+      stroke="#064685"
+    />
+    <path
+      d="M101.16 147.639C98.4175 160.785 95.6751 169.548 95.1267 178.311C87.4483 244.037 141.746 297.713 208.109 289.497C312.864 276.352 373.195 176.121 335.351 77.5319C333.706 73.6979 332.609 69.3162 329.866 62.7437C379.228 103.275 397.327 185.979 373.743 254.444C338.642 356.319 222.369 411.09 134.067 367.821C55.0893 329.481 32.6025 229.249 86.3514 161.332C89.6421 156.951 94.0298 154.212 101.16 147.639Z"
+      fill="#064685"
+      stroke="#064685"
+    />
+  </svg>
+  <Container className="py-5">
+    <Row className="mb-4 d-flex">
+      <Col md={6} className="align-content-end head">
+        <img src={Round} alt="scroling" className="scrol-top" ref={scrollImageRef} />
+        <h2 className="same-head" ref={welcomeTextRef}>
+          WELCOME TO SLOC
+        </h2>
+        <p className="same-head-p">
+          SLOC – "Search Land of Choice" is a leading real estate company in India dedicated to
+          providing exceptional property solutions. With a focus on customer satisfaction and market
+          expertise, SLOC has built a reputation as a trusted name in the industry. Collaborating with
+          top-tier real estate brands like Godrej, DLF, and many more, SLOC offers a diverse range of
+          properties, including luxurious apartments, plots, villas, and commercial space.
+        </p>
+      </Col>
+      <Col md={6} className="d-flex flex-wrap four-col-st">
+        <Col md={6} lg={6} className="right">
+          <Card className="">
+            <h3 className="text-primary">
+              <Counter className="Counter-no" to={1} from={0} />
+              M+
+            </h3>
+            <p>Sed ut Perspiciatis</p>
+          </Card>
+        </Col>
+        <Col md={6} lg={6} className="only-bottom">
+          <Card className="">
+            <h3 className="text-primary">
+              <Counter className="Counter-no" to={500} from={0} />
+              K
+            </h3>
+            <p>Lorem Ipsum</p>
+          </Card>
+        </Col>
+        <Col md={6} lg={6} className="only-right">
+          <Card>
+            <h3 className="text-primary">
+              <Counter className="Counter-no" to={24} from={0} />
+              /7
+            </h3>
+            <p>Consectetur Adipiscing Elit, Sed Do</p>
+          </Card>
+        </Col>
+        <Col md={6} lg={6} className="left-brdr">
+          <Card className="">
+            <h3 className="text-primary">
+              <Counter className="Counter-no" to={1} from={0} />
+              M+
+            </h3>
+            <p>Sed ut Perspiciatis</p>
+          </Card>
+        </Col>
+      </Col>
+    </Row>
+  </Container>
+</section>
 
         <section ref={section1Ref} className="featured">
           {/* Floating Images Container */}
@@ -2012,13 +2150,22 @@ gsap.to(section2Image, {
                           </Button>
                         </Card.Body>
 {index < 3 && (
-                  <img
-                    ref={(el) => (bottomImageRefs.current[index] = el)}
-                    className="bottom-image"
-                    src={project.bottomImage}
-                    alt={`bottom-img-${project.id}`}
-                  />
-                )}
+      <img
+        ref={(el) => (bottomImageRefs.current[index] = el)}
+        className="bottom-image"
+        src={project.bottomImage}
+        alt={`bottom-img-${project.id}`}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          zIndex: -1,
+          pointerEvents: 'none',
+          width: '100%',
+          height: 'auto',
+        }}
+      />
+    )}
                       </Card>
                     </Col>
                   </SwiperSlide>
