@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { FaTwitter, FaFacebook, FaInstagram, FaSnapchat, FaTelegram } from 'react-icons/fa';
 import Instagram from '../assets/Imgs/ig.svg'
 import Facebook from '../assets/Imgs/facbook.svg'
-import linkdin from '../assets/Imgs/Linkdin.svg'
+import linkdin from '../assets/Imgs/linkdin.svg'
 
 
 const Footer = () => {
