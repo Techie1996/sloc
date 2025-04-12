@@ -802,17 +802,13 @@ section.featured .card-title.h5 {
 }
 
 /* Position bottom images behind cards without taking space */
+
+
 .bottom-image {
-  /* position: absolute; */
-  /* top: 0; */
-  /* left: 70px; */
+  transform: translateY(100px);
+  /* Fallback for non-JS */
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  will-change: transform, opacity;
   z-index: -1;
-  /* Place behind the card */
-  pointer-events: none;
-  /* Prevent interaction */
-  /* Adjust size/position as needed for animation */
-  /* Example: match card width */
 }
-
-
 
