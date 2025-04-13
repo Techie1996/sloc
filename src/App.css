@@ -825,3 +825,11 @@ section.featured .card-title.h5 {
 .image-stack-1{
   top: 0 !important;
 }
+
+
+
+.bottom-image {
+  z-index: -1 !important;
+  /* Make sure this stays behind */
+  position: absolute;
+}

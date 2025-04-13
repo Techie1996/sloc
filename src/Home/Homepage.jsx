@@ -2114,9 +2114,21 @@ gsap.to(images, {
     </div>
   </div>
   <Container className="full">
-    <Row className="mb-4 d-flex py-4 align-content-center">
-      {/* ... (unchanged) */}
-    </Row>
+           <Row className="mb-4 d-flex py-4 align-content-center">
+              <Col md={8} className="align-content-center">
+                <h2 className="same-head">FEATURED PROJECTS</h2>
+                <p className="same-head-p">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+              </Col>
+              <Col md={4} className="align-items-end text-end align-content-center">
+                <div className="custom-swiper-nav d-flex gap-4 justify-content-end mb-3">
+                  <img src={PrevArrow} alt="Previous" className="swiper-button-prev-custom" />
+                  <img src={NextArrow} alt="Next" className="swiper-button-next-custom" />
+                </div>
+              </Col>
+            </Row>
     <Row className="features-row">
               <Swiper
                 spaceBetween={30}
@@ -2135,11 +2147,27 @@ gsap.to(images, {
         {projects.map((project, index) => (
           <SwiperSlide key={project.id}>
             <Col className="features-list p-0 dip-column">
-              <div style={{ position: 'relative', zIndex: 1 }}> {/* Wrapper with positioning context */}
+                              {index < 3 && (
+                    <img
+                      ref={(el) => (bottomImageRefs.current[index] = el)}
+                      className="bottom-image"
+                      src={project.bottomImage}
+                      alt={`bottom-img-${project.id}`}
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        zIndex: -1, // Below the card
+                        pointerEvents: 'none', // Prevent interaction
+                        width: '60%',
+                        height: 'auto',
+                      }}
+                    />
+                  )}
                 <Card
                   ref={(el) => (boxRefs.current[index] = el)}
                   className={`custom-card card-${index} box-${index}`}
-                  style={{ position: 'relative', zIndex: 1 }} // Ensure card is above images
+    style={{ position: 'relative', zIndex: 2 }}
                 >
                   <Card.Img variant="top" src={project.image} alt={project.title} />
                   <Card.Body className="uper-space">
@@ -2155,25 +2183,8 @@ gsap.to(images, {
                       <img src={Arrow} />
                     </Button>
                   </Card.Body>
-                  {index < 3 && (
-                    <img
-                      ref={(el) => (bottomImageRefs.current[index] = el)}
-                      className="bottom-image"
-                      src={project.bottomImage}
-                      alt={`bottom-img-${project.id}`}
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        zIndex: -1, // Below the card
-                        pointerEvents: 'none', // Prevent interaction
-                        width: '100%',
-                        height: 'auto',
-                      }}
-                    />
-                  )}
+
                 </Card>
-              </div>
             </Col>
           </SwiperSlide>
         ))}
