@@ -812,3 +812,25 @@ section.featured .card-title.h5 {
   z-index: -1;
 }
 
+.bottom-image {
+  position: absolute;
+  bottom: 0;
+  /* Start at the bottom of the card */
+  left: 50%;
+  /* Center horizontally relative to the card */
+  transform: translateX(-50%);
+  /* Adjust for centering */
+  z-index: -1;
+  pointer-events: none;
+  width: 100%;
+  height: auto;
+  transition: opacity 0.5s ease;
+  will-change: transform, opacity;
+}
+
+.card {
+  position: relative;
+  /* Ensure cards provide a positioning context */
+  overflow: visible;
+  /* Allow images to move out */
+}
