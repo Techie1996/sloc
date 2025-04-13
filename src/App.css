@@ -785,12 +785,6 @@ section.featured .card-title.h5 {
 
 
 
-.featured {
-  position: relative;
-  margin: 0;
-  padding: 0;
-}
-
 .features-list {
   position: relative;
   /* Context for absolute positioning of bottom-image */
@@ -800,13 +794,6 @@ section.featured .card-title.h5 {
 
 
 
-
-.features-list {
-  position: relative;
-  /* Establish stacking context for Col */
-  overflow: visible;
-  /* Ensure images aren’t clipped */
-}
 
 .swiper-slide {
   position: relative;
@@ -823,11 +810,6 @@ section.featured .card-title.h5 {
   position: relative;
   z-index: 0;
   /* Base level for Swiper */
-}.custom-card {
-  position: relative;
-  /* Ensure stacking context */
-  z-index: 1;
-  /* Above bottom images */
 }
 
 .bottom-image {

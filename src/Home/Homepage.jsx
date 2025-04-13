@@ -948,7 +948,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ScrollMagic from "scrollmagic";
 import Logo from '../assets/Imgs/Round.svg'
-import WelcomeLogo from '../assets/Imgs/Scroll.svg'
+import WelcomeLogo from '../assets/Imgs/back-scrol-BsNhHslO.png'
 import revertLogo from '../assets/Imgs/Round.svg'
 // import soback from '../assets/Imgs/back-scrol.png'
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -1300,64 +1300,140 @@ const containerRefs = useRef(null);
   const scrollImageRef = useRef(null);
   const welcomeTextRef = useRef(null);
 
-
 useEffect(() => {
-    // Main animation timeline
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRefs.current,
-        start: 'top center',
-        end: 'bottom center',
-        scrub: 1.2,
-        markers: false,
+  const paths = logoRefs.current?.querySelectorAll('path');
+
+  // Main animation for the logo movement
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: containerRefs.current,
+      start: 'top center',
+      end: 'bottom center',
+      scrub: 0.3, // smoother and more responsive
+      markers: false,
+    },
+  })
+    .fromTo(
+      logoRefs.current,
+      {
+        opacity: 0,
+        y: -120,
+        x: 150,
+        scale: 1.4,
       },
-    })
-      .fromTo(
-        logoRefs.current,
-        {
-          opacity: 0,
-          y: -120,
-          x: 150,
-          scale: 1.4,
-        },
-        {
-          opacity: 1,
-          y: 50,
-          x: 400,
-          scale: 0.6,
-          ease: 'power3.out',
-        }
-      )
-      .to(scrollImageRef.current, {
+      {
+        opacity: 1,
+        y: 50,
+        x: 300,
+        scale: 0.6,
+        ease: 'power3.out',
+      }
+    )
+    .to(
+      scrollImageRef.current,
+      {
         opacity: 0,
         duration: 0.3,
         ease: 'power3.out',
-      }, 0)
-      .to(logoRefs.current, {
-        opacity: 0,
-        y: 500,
-        x: 500,
-        scale: 0.2,
-        ease: 'power3.inOut',
-      });
-
-    // Change SVG fill to blue when reaching welcomeTextRef
-    gsap.to(logoRefs.current.querySelectorAll('path'), {
-      fill: '#064685',
-      stroke: '#064685',
-      scrollTrigger: {
-        trigger: welcomeTextRef.current,
-        start: 'top bottom', // When top of welcomeTextRef hits bottom of viewport
-        end: 'bottom top',
-        scrub: true,
-        markers: false,
       },
+      0
+    )
+    .to(logoRefs.current, {
+      opacity: 0,
+      y: 500,
+      x: 500,
+      scale: 0.2,
+      ease: 'power3.inOut',
     });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
+// Color change of SVG when welcomeText is 200px from top of viewport
+ScrollTrigger.create({
+  trigger: welcomeTextRef.current,
+  start: 'top-=200 top', // Trigger 200px before it reaches top
+  toggleActions: 'play none none reverse',
+  onEnter: () => {
+    // Magical instant color shift
+    gsap.set(paths, {
+      fill: '#064685',
+      stroke: '#064685',
+    });
+
+    // Optional: Add a tiny glow or flash for magic effect
+    // gsap.fromTo(paths, { opacity: 0.5 }, { opacity: 1, duration: 0.2 });
+  },
+  onLeaveBack: () => {
+    gsap.set(paths, {
+      fill: 'transparent',
+      stroke: 'black',
+    });
+  },
+  markers: false,
+});
+
+
+  // Cleanup scroll triggers on unmount
+  return () => {
+    ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  };
+}, []);
+
+// useEffect(() => {
+//     // Main animation timeline
+//     const tl = gsap.timeline({
+//       scrollTrigger: {
+//         trigger: containerRefs.current,
+//         start: 'top center',
+//         end: 'bottom center',
+//         scrub: 1.2,
+//         markers: false,
+//       },
+//     })
+//       .fromTo(
+//         logoRefs.current,
+//         {
+//           opacity: 0,
+//           y: -120,
+//           x: 150,
+//           scale: 1.4,
+//         },
+//         {
+//           opacity: 1,
+//           y: 50,
+//           x: 400,
+//           scale: 0.6,
+//           ease: 'power3.out',
+//         }
+//       )
+//       .to(scrollImageRef.current, {
+//         opacity: 0,
+//         duration: 0.3,
+//         ease: 'power3.out',
+//       }, 0)
+//       .to(logoRefs.current, {
+//         opacity: 0,
+//         y: 500,
+//         x: 500,
+//         scale: 0.2,
+//         ease: 'power3.inOut',
+//       });
+
+//     // Change SVG fill to blue when reaching welcomeTextRef
+//     gsap.to(logoRefs.current.querySelectorAll('path'), {
+//       fill: '#064685',
+//       stroke: '#064685',
+//       scrollTrigger: {
+//         trigger: welcomeTextRef.current,
+//         start: 'top bottom', // When top of welcomeTextRef hits bottom of viewport
+//         end: 'bottom top',
+//         scrub: true,
+//         markers: false,
+//       },
+//     });
+
+//     return () => {
+//       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+//     };
+//   }, []);
 // WELCOME TO SLOC section animation
 // useEffect(() => {
 //   const logo = logoRefs.current;
@@ -1510,7 +1586,7 @@ useEffect(() => {
           x: xOffset,
           y: 300,
           scale: 1,
-          opacity: 0,
+          opacity: 1,
           visibility: "visible",
           ease: "power2.out",
           scrollTrigger: {
@@ -1740,16 +1816,16 @@ gsap.to(section2Image, {
 });
 
     // Section 2: Move top images only
-    gsap.to(images, {
-      y: 750,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: section2Ref.current,
-        start: "top center",
-        end: "bottom center",
-        scrub: true,
-      },
-    });
+    // gsap.to(images, {
+    //   y: 750,
+    //   ease: "power2.out",
+    //   scrollTrigger: {
+    //     trigger: section2Ref.current,
+    //     start: "top center",
+    //     end: "bottom center",
+    //     scrub: true,
+    //   },
+    // });
 
     // Reset background color of boxes when section2Ref is reached
     gsap.to(boxes, {
@@ -2131,7 +2207,7 @@ gsap.to(images, {
         </section>
 
         <section ref={containerRefs1} className="social-proof position-relative">
-          <img className="Move" src={Logo} ref={logoRefs1} />
+          <img className="Move" src={WelcomeLogo} ref={logoRefs1} />
           <Container className="">
             <Row className="align-items-center justify-content-between">
               <Col md={5} className="mb-4 mb-md-0">
