@@ -2200,10 +2200,9 @@ gsap.to(images, {
             </Row>
           </Container>
         </section>
-
         <section className="featured blogs" ref={blogsectionRef}>
           <div className="featured-floating-imgs">
-            <div className="image-stack">
+            <div className="image-stack image-stack-1">
               <img
                 ref={(el) => (BlogimageRefs.current[0] = el)}
                 className="initial-image"
@@ -2280,7 +2279,7 @@ gsap.to(images, {
             </Row>
           </Container>
         </section>
-        <div className="position relative" ref={BlogsBottomsectionRef} >
+          <div className="position relative" ref={BlogsBottomsectionRef} >
 
         </div>
       </main>

@@ -840,3 +840,6 @@ section.featured .card-title.h5 {
 .image-stack {
   top: -112px;
 }
+.image-stack-1{
+  top: 0 !important;
+}
