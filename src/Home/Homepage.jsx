@@ -1500,7 +1500,8 @@ useEffect(() => {
         img,
         {
           x: 0,
-          y: -170,
+          // y: -170,
+          y: -100,
           scale: 1,
           opacity: 1,
           visibility: "hidden",
@@ -1587,21 +1588,25 @@ bottomImages.forEach((img, index) => {
   requestAnimationFrame(() => {
     const { x, y } = getOffsets();
 
-    gsap.to(img, {
-      x,
-      y,
-      scale: 0.5,
-      opacity: 0,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: section2Ref.current,
-        start: "top center",
-        end: "bottom center",
-        scrub: 1, // <== this makes it follow the scroll smoothly!
-        onEnter: () => gsap.set(img, { visibility: "visible" }),
-        onLeaveBack: () => gsap.set(img, { visibility: "hidden" }),
-      },
-    });
+gsap.fromTo(
+      img,
+      { x: 0, y: 0, opacity: 1, visibility: 'hidden', zIndex: -1 }, // Start behind
+      {
+        x: () => getOffsets().x,
+        y: () => getOffsets().y,
+        scale: 0.5,
+        opacity: 0,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section2Ref.current,
+          start: "top center",
+          end: "bottom center",
+          scrub: 2,
+          onEnter: () => gsap.set(img, { visibility: "visible" }),
+          onLeaveBack: () => gsap.set(img, { visibility: "hidden" }),
+        },
+      }
+    );
   });
 });
 
@@ -1695,6 +1700,7 @@ bottomImages.forEach((img, index) => {
     x: xOffset,
     y: 500,
     scale: 0.5,
+    opacity: 0,
     ease: "power2.out",
     scrollTrigger: {
       trigger: section2Ref.current,
@@ -1706,17 +1712,7 @@ bottomImages.forEach((img, index) => {
     },
   });
 
-  // Fade bottom images to vanish at collision
-  gsap.to(img, {
-    opacity: 0, // Fully vanish to match section2ImageRef
-    ease: "power2.out",
-    scrollTrigger: {
-      trigger: section2Ref.current,
-      start: "bottom center-=20", // Start fade slightly before collision
-      end: "bottom center", // Complete fade at exact collision
-      scrub: 1, // Sharp fade for precision
-    },
-  });
+
 });
 
 // Section 2: Make section2ImageRef vanish (already working perfectly)
@@ -2018,47 +2014,34 @@ gsap.to(images, {
   </Container>
 </section>
 
-        <section ref={section1Ref} className="featured">
-          {/* Floating Images Container */}
-          <div className="featured-floating-imgs">
-            <div className="image-stack">
-              <img
-                ref={(el) => (imageRefs.current[0] = el)}
-                className="initial-image"
-                src={Logo1}
-                alt="img1"
-              />
-              <img
-                ref={(el) => (imageRefs.current[1] = el)}
-                className="initial-image"
-                src={Logo1}
-                alt="img2"
-              />
-              <img
-                ref={(el) => (imageRefs.current[2] = el)}
-                className="initial-image"
-                src={Logo1}
-                alt="img3"
-              />
-            </div>
-          </div>
-          <Container className="full">
-            <Row className="mb-4 d-flex py-4 align-content-center">
-              <Col md={8} className="align-content-center">
-                <h2 className="same-head">FEATURED PROJECTS</h2>
-                <p className="same-head-p">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-              </Col>
-              <Col md={4} className="align-items-end text-end align-content-center">
-                <div className="custom-swiper-nav d-flex gap-4 justify-content-end mb-3">
-                  <img src={PrevArrow} alt="Previous" className="swiper-button-prev-custom" />
-                  <img src={NextArrow} alt="Next" className="swiper-button-next-custom" />
-                </div>
-              </Col>
-            </Row>
-            <Row className="features-row">
+<section ref={section1Ref} className="featured">
+  <div className="featured-floating-imgs">
+    <div className="image-stack">
+      <img
+        ref={(el) => (imageRefs.current[0] = el)}
+        className="initial-image"
+        src={Logo1}
+        alt="img1"
+      />
+      <img
+        ref={(el) => (imageRefs.current[1] = el)}
+        className="initial-image"
+        src={Logo1}
+        alt="img2"
+      />
+      <img
+        ref={(el) => (imageRefs.current[2] = el)}
+        className="initial-image"
+        src={Logo1}
+        alt="img3"
+      />
+    </div>
+  </div>
+  <Container className="full">
+    <Row className="mb-4 d-flex py-4 align-content-center">
+      {/* ... (unchanged) */}
+    </Row>
+    <Row className="features-row">
               <Swiper
                 spaceBetween={30}
                 slidesPerView={1}
@@ -2073,59 +2056,55 @@ gsap.to(images, {
                   992: { slidesPerView: 3 },
                 }}
               >
-                {projects.map((project, index) => (
-                  <SwiperSlide key={project.id}>
-                    <Col className="features-list p-0 dip-column">
-                    <div style={{ position: 'relative', zIndex: 1 }}> {/* Add wrapper for Card */}
-                      <Card
-                        ref={(el) => (boxRefs.current[index] = el)} // Applied ref to each card
-                        className={`custom-card card-${index}  box-${index}`} // Added box classes
-                      >
-                        <Card.Img
-                          variant="top"
-                          src={project.image}
-                          alt={project.title}
-                        />
-                        <Card.Body className="uper-space">
-                          <Card.Text className="mb-4 btn-loc">
-                            <span>{project.size}</span> <span>{project.feet}</span>
-                            <span>{project.location}</span>
-                          </Card.Text>
-                          <Card.Title>{project.title}</Card.Title>
-                          <Card.Text className="text-primary font-weight-bold">
-                            {project.price}
-                          </Card.Text>
-                          <Button className="Up-arrow-btn">
-                            <img src={Arrow} />
-                          </Button>
-                        </Card.Body>
-{index < 3 && (
-      <img
-        ref={(el) => (bottomImageRefs.current[index] = el)}
-        className="bottom-image"
-        src={project.bottomImage}
-        alt={`bottom-img-${project.id}`}
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          zIndex: -10,
-          // pointerEvents: 'none',
-          width: '100%',
-          height: 'auto',
-        }}
-      />
-    )}
-                      </Card>
-                      </div>
-                    </Col>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </Row>
-          </Container>
-
-        </section>
+        {projects.map((project, index) => (
+          <SwiperSlide key={project.id}>
+            <Col className="features-list p-0 dip-column">
+              <div style={{ position: 'relative', zIndex: 1 }}> {/* Wrapper with positioning context */}
+                <Card
+                  ref={(el) => (boxRefs.current[index] = el)}
+                  className={`custom-card card-${index} box-${index}`}
+                  style={{ position: 'relative', zIndex: 1 }} // Ensure card is above images
+                >
+                  <Card.Img variant="top" src={project.image} alt={project.title} />
+                  <Card.Body className="uper-space">
+                    <Card.Text className="mb-4 btn-loc">
+                      <span>{project.size}</span> <span>{project.feet}</span>
+                      <span>{project.location}</span>
+                    </Card.Text>
+                    <Card.Title>{project.title}</Card.Title>
+                    <Card.Text className="text-primary font-weight-bold">
+                      {project.price}
+                    </Card.Text>
+                    <Button className="Up-arrow-btn">
+                      <img src={Arrow} />
+                    </Button>
+                  </Card.Body>
+                  {index < 3 && (
+                    <img
+                      ref={(el) => (bottomImageRefs.current[index] = el)}
+                      className="bottom-image"
+                      src={project.bottomImage}
+                      alt={`bottom-img-${project.id}`}
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        zIndex: -1, // Below the card
+                        pointerEvents: 'none', // Prevent interaction
+                        width: '100%',
+                        height: 'auto',
+                      }}
+                    />
+                  )}
+                </Card>
+              </div>
+            </Col>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </Row>
+  </Container>
+</section>
 
         <section ref={section2Ref} className="Cta position-relative">
           <Container>

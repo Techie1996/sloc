@@ -738,14 +738,9 @@ section.featured .card-title.h5 {
   }
  */
 
- .custom-card {
-  overflow: visible !important;
-}
 
-.bottom-image {
-  z-index: 10; /* Ensure it’s above other elements */
-  will-change: transform, opacity;
-}
+
+
 
 .swiper {
   overflow: visible !important;
@@ -804,13 +799,7 @@ section.featured .card-title.h5 {
 /* Position bottom images behind cards without taking space */
 
 
-.bottom-image {
-  transform: translateY(100px);
-  /* Fallback for non-JS */
-  transition: transform 0.5s ease, opacity 0.5s ease;
-  will-change: transform, opacity;
-  z-index: -1;
-}
+
 
 .features-list {
   position: relative;
@@ -827,29 +816,27 @@ section.featured .card-title.h5 {
   /* Allow bottom images to extend */
 }
 
-.custom-card {
-  position: relative;
-  z-index: 10;
-  /* Card is above bottom image */
-  background: #fff;
-  /* Ensure card has a solid background to obscure bottom image */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* Optional: add shadow for depth */
-}
 
-.bottom-image {
-  z-index: -10;
-  /* Very low to ensure it’s behind everything */
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  /* Adjust scaling if needed */
-  opacity: 0.9;
-  /* Optional: slight transparency for debugging */
-}
+
 
 .swiper {
   position: relative;
   z-index: 0;
   /* Base level for Swiper */
+}.custom-card {
+  position: relative;
+  /* Ensure stacking context */
+  z-index: 1;
+  /* Above bottom images */
+}
+
+.bottom-image {
+  z-index: -1;
+  /* Below the card */
+  visibility: hidden;
+  /* Initially hidden until animation */
+}
+
+.image-stack {
+  top: -112px;
 }
