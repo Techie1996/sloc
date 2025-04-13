@@ -1297,90 +1297,65 @@ function Home() {
 //   }, []);
 const containerRefs = useRef(null);
   const logoRefs = useRef(null); // Transparent SVG
-  const blueLogoRef = useRef(null); // Blue SVG
   const scrollImageRef = useRef(null);
   const welcomeTextRef = useRef(null);
 
-  useLayoutEffect(() => {
-    if (
-      !containerRefs.current ||
-      !logoRefs.current ||
-      !blueLogoRef.current ||
-      !scrollImageRef.current ||
-      !welcomeTextRef.current
-    ) {
-      return;
-    }
 
-    // ✅ 1. Initialize both SVGs
-    gsap.set(logoRefs.current, { opacity: 1 }); // Transparent SVG visible
-    gsap.set(blueLogoRef.current, { opacity: 0 }); // Blue SVG hidden
-
-    // ✅ 2. GSAP context for animations
-    const ctx = gsap.context(() => {
-      // ✅ 3. Main timeline for both SVGs (same movement)
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRefs.current,
-          start: 'top center',
-          end: 'bottom center',
-          scrub: 1.2,
-          markers: false,
-        },
-      })
-        .fromTo(
-          [logoRefs.current, blueLogoRef.current], // Animate both SVGs together
-          { opacity: 0, y: -300, x: 150, scale: 1.4 },
-          { opacity: 1, y: 50, x: 400, scale: 0.6, ease: 'power3.out' }
-        )
-        .to(scrollImageRef.current, { opacity: 0, duration: 0.3, ease: 'power3.out' }, 0)
-        .to([logoRefs.current, blueLogoRef.current], {
+useEffect(() => {
+    // Main animation timeline
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRefs.current,
+        start: 'top center',
+        end: 'bottom center',
+        scrub: 1.2,
+        markers: false,
+      },
+    })
+      .fromTo(
+        logoRefs.current,
+        {
           opacity: 0,
-          y: 500,
-          x: 500,
-          scale: 0.2,
-          ease: 'power3.inOut',
-        });
+          y: -120,
+          x: 150,
+          scale: 1.4,
+        },
+        {
+          opacity: 1,
+          y: 50,
+          x: 400,
+          scale: 0.6,
+          ease: 'power3.out',
+        }
+      )
+      .to(scrollImageRef.current, {
+        opacity: 0,
+        duration: 0.3,
+        ease: 'power3.out',
+      }, 0)
+      .to(logoRefs.current, {
+        opacity: 0,
+        y: 500,
+        x: 500,
+        scale: 0.2,
+        ease: 'power3.inOut',
+      });
 
-      // ✅ 4. Color change effect (swap opacity)
-      ScrollTrigger.create({
+    // Change SVG fill to blue when reaching welcomeTextRef
+    gsap.to(logoRefs.current.querySelectorAll('path'), {
+      fill: '#064685',
+      stroke: '#064685',
+      scrollTrigger: {
         trigger: welcomeTextRef.current,
-        start: 'top bottom',
+        start: 'top bottom', // When top of welcomeTextRef hits bottom of viewport
         end: 'bottom top',
         scrub: true,
         markers: false,
-        onUpdate: (self) => {
-          const opacity = self.progress; // Smooth transition
-          gsap.to(logoRefs.current, { opacity: 1 - opacity, duration: 0.3 });
-          gsap.to(blueLogoRef.current, { opacity: opacity, duration: 0.3 });
-        },
-      });
+      },
+    });
 
-      // ✅ 5. Handle layout changes (DevTools toggle)
-      const handleLayoutChange = () => {
-        ScrollTrigger.refresh();
-        // Ensure correct SVG visibility after resize
-        const st = ScrollTrigger.getById('welcomeTrigger');
-        const opacity = st && st.isActive ? 1 : 0;
-        gsap.set(logoRefs.current, { opacity: opacity ? 0 : 1 });
-        gsap.set(blueLogoRef.current, { opacity });
-      };
-
-      window.addEventListener('resize', handleLayoutChange);
-      ScrollTrigger.refresh(); // Immediate refresh
-
-      // Cleanup
-      return () => {
-        window.removeEventListener('resize', handleLayoutChange);
-      };
-    }, containerRefs);
-
-    // ✅ 6. Cleanup
     return () => {
-      ctx.revert();
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      gsap.set([logoRefs.current, blueLogoRef.current], { opacity: 0 });
-      gsap.set(logoRefs.current, { opacity: 1 }); // Reset to transparent
     };
   }, []);
 // WELCOME TO SLOC section animation
@@ -1956,9 +1931,14 @@ gsap.to(images, {
 
 <section ref={containerRefs} className="welcome">
   {/* Transparent SVG */}
+
+
+  {/* Blue SVG */}
 <svg
   className="Move"
-  viewBox="0 0 611 608"
+  width="384"
+  height="383"
+  viewBox="0 0 384 383"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
   ref={logoRefs}
@@ -1967,50 +1947,20 @@ gsap.to(images, {
     top: 0,
     left: 0,
     zIndex: 1,
-    width: '100%',
-    height: '100%',
+    opacity: 0, // Start hidden
   }}
 >
   <path
-    d="M0 0 C0.92264648 -0.00705963 1.84529297 -0.01411926 2.79589844 -0.02139282 ..."
-    fill="#B6B6B6"
-    transform="translate(286.01171875,-0.203125)"
+    d="M70.7116 334.744C0.580713 282.717 -19.6915 184.139 20.305 106.373C60.8494 26.9634 151.8 -15.7535 231.245 6.70026C334.25 35.7258 368.22 159.495 294.254 235.071C289.871 239.452 284.939 242.19 280.008 246.024C283.296 224.666 290.418 204.403 289.323 184.139C284.939 121.159 223.575 80.6332 160.567 96.5151C64.6847 121.159 15.9218 230.69 61.9452 318.314C64.6847 323.791 67.9721 329.267 70.7116 334.744Z"
+    fill="transparent"
+    stroke="black"
   />
   <path
-    d="M0 0 C5.64374818 3.39163245 10.06291098 7.71632789 14.6875 12.375 ..."
-    fill="#B6B6B6"
-    transform="translate(525,99)"
+    d="M101.16 147.639C98.4175 160.785 95.6751 169.548 95.1267 178.311C87.4483 244.037 141.746 297.713 208.109 289.497C312.864 276.352 373.195 176.121 335.351 77.5319C333.706 73.6979 332.609 69.3162 329.866 62.7437C379.228 103.275 397.327 185.979 373.743 254.444C338.642 356.319 222.369 411.09 134.067 367.821C55.0893 329.481 32.6025 229.249 86.3514 161.332C89.6421 156.951 94.0298 154.212 101.16 147.639Z"
+    fill="transparent"
+    stroke="black"
   />
 </svg>
-
-  {/* Blue SVG */}
-  <svg
-    className="Move"
-    width="384"
-    height="383"
-    viewBox="0 0 384 383"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    ref={blueLogoRef}
-    style={{
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      zIndex: 1,
-      opacity: 0, // Start hidden
-    }}
-  >
-    <path
-      d="M70.7116 334.744C0.580713 282.717 -19.6915 184.139 20.305 106.373C60.8494 26.9634 151.8 -15.7535 231.245 6.70026C334.25 35.7258 368.22 159.495 294.254 235.071C289.871 239.452 284.939 242.19 280.008 246.024C283.296 224.666 290.418 204.403 289.323 184.139C284.939 121.159 223.575 80.6332 160.567 96.5151C64.6847 121.159 15.9218 230.69 61.9452 318.314C64.6847 323.791 67.9721 329.267 70.7116 334.744Z"
-      fill="#064685"
-      stroke="#064685"
-    />
-    <path
-      d="M101.16 147.639C98.4175 160.785 95.6751 169.548 95.1267 178.311C87.4483 244.037 141.746 297.713 208.109 289.497C312.864 276.352 373.195 176.121 335.351 77.5319C333.706 73.6979 332.609 69.3162 329.866 62.7437C379.228 103.275 397.327 185.979 373.743 254.444C338.642 356.319 222.369 411.09 134.067 367.821C55.0893 329.481 32.6025 229.249 86.3514 161.332C89.6421 156.951 94.0298 154.212 101.16 147.639Z"
-      fill="#064685"
-      stroke="#064685"
-    />
-  </svg>
   <Container className="py-5">
     <Row className="mb-4 d-flex">
       <Col md={6} className="align-content-end head">
@@ -2126,6 +2076,7 @@ gsap.to(images, {
                 {projects.map((project, index) => (
                   <SwiperSlide key={project.id}>
                     <Col className="features-list p-0 dip-column">
+                    <div style={{ position: 'relative', zIndex: 1 }}> {/* Add wrapper for Card */}
                       <Card
                         ref={(el) => (boxRefs.current[index] = el)} // Applied ref to each card
                         className={`custom-card card-${index}  box-${index}`} // Added box classes
@@ -2158,14 +2109,15 @@ gsap.to(images, {
           position: 'absolute',
           top: 0,
           left: 0,
-          zIndex: -1,
-          pointerEvents: 'none',
+          zIndex: -10,
+          // pointerEvents: 'none',
           width: '100%',
           height: 'auto',
         }}
       />
     )}
                       </Card>
+                      </div>
                     </Col>
                   </SwiperSlide>
                 ))}
@@ -2338,12 +2290,12 @@ gsap.to(images, {
                       </Button>
                     </Card.Body>
                   </Card>
-                  <img
+                  {/* <img
                     ref={(el) => (BlogBottomImageRefs.current[index] = el)}
                     className="bottom-image"
                     src={Blogs.BlogImage}
                     alt={`bottom-img-${Blogs.id}`}
-                  />
+                  /> */}
                 </Col>
               ))}
             </Row>
